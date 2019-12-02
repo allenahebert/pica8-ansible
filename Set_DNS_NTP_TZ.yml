@@ -1,0 +1,20 @@
+---
+
+- name: Deploy services
+  hosts: all
+  tasks:
+
+  - name: Set DNS
+    picos_config: mode='cli_config' cmd='set system dns-server-ip {{DNS_Server}}'
+    register: exec_result
+
+  - name: Set ntp
+    picos_config: mode='cli_config' cmd='set system ntp-server-ip {{NTP_Server}}'
+    register: exec_result
+
+  - name: Set timezone to CST
+    picos_config: mode='cli_config' cmd='set system timezone {{TZ}}'
+    register: exec_result
+
+  - name: Show execution result
+    debug: var=exec_result.stdout_lines
