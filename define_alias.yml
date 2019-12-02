@@ -3,7 +3,7 @@
   hosts: all
   tasks:
   - name: Transfer the script
-    copy: src=./configs/define_alias.conf dest=~/setconfig1.conf force=yes mode=0777
+    copy: src=configs/define_alias.conf dest=~/setconfig1.conf force=yes mode=0777
 
   - name: Activate the configuration
     picos_config: mode='config_load' cmd='~/setconfig1.conf'
