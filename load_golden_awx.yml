@@ -1,0 +1,17 @@
+---
+- name: Load {{config_file}} Golden Config from AWX Server
+  hosts: all
+  tasks:
+  - name: make directory
+    picos_config: mode='shell' cmd='mkdir -p -m 777 /pica/config/admin'
+    register: exec_result
+
+  - name: Transfer the script
+    copy: src=/var/lib/awx/projects/backup_config/golden/{{ inventory_hostname }}-{{ config_file }} dest=/pica/config/admin/{{ config_file}} force=yes mode=0777
+
+  - name: Applying {{config_file}} to switches
+    picos_config: mode='cli_config' cmd='load override {{config_file}}'
+    register: exec_result
+
+  - name: Show execution result
+    debug: var=exec_result.stdout_lines

@@ -1,0 +1,10 @@
+---
+- name: Hosts 
+  hosts: all
+  tasks:
+  - name: Save Golden Config 
+    picos_config: mode='cli_config' cmd='save {{config_file}}'
+    register: exec_result
+
+  - name: Show execution result
+    debug: var=exec_result.stdout_lines
