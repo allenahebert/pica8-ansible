@@ -1,0 +1,8 @@
+---
+- hosts: all
+  tasks:
+    - name: Save {{config_file}} Golden Config to AWX Server var lib awx projects backup_config golden
+      fetch:
+        src: /pica/config/pica.conf
+        flat: yes
+        dest: "/var/lib/awx/projects/backup_config/golden/{{ inventory_hostname }}-{{ config_file }}"
