@@ -1,0 +1,23 @@
+---
+- name: Deploy services
+  hosts: all 
+  tasks:
+
+  - name: enable sFlow on the switch
+    picos_config: mode='cli_config' cmd='et protocols sflow disable false}'
+    register: exec_result
+    
+  - name: Set sFlow server IP Address
+    picos_config: mode='cli_config' cmd='set protocols sflow collector {{sflow_server}}'
+    register: exec_result
+
+  - name: Set sflow agent-id
+    picos_config: mode='cli_config' cmd='set protocols sflow agent-id {{inventory_hostname}}'
+    register: exec_result
+
+  - name: Set sflow source-address
+    picos_config: mode='cli_config' cmd='set protocols sflow source-address {{inventory_hostname}}'
+    register: exec_result
+
+  - name: Show execution result
+    debug: var=exec_result.stdout_lines
