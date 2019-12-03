@@ -1,0 +1,18 @@
+---
+- name: Deploy services
+  hosts: all
+  tasks:
+
+  - name: Set Syslog server IP Address
+    picos_config: mode='cli_config' cmd='set system syslog server-ir {{syslog_server}}'
+    register: exec_result
+    
+  - name: Transfer the script
+    copy: src=./configs/set_syslog.conf dest=~/setconfig1.conf force=yes mode=0777
+
+  - name: Activate the configuration
+    picos_config: mode='config_load' cmd='~/setconfig1.conf'
+    register: exec_result
+
+  - name: Show execution result
+    debug: var=exec_result.stdout_lines
