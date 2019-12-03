@@ -4,7 +4,7 @@
   tasks:
 
   - name: Set Syslog server IP Address
-    picos_config: mode='cli_config' cmd='set system syslog server-ir {{syslog_server}}'
+    picos_config: mode='cli_config' cmd='set system syslog server-ip {{syslog_server}}'
     register: exec_result
     
   - name: Transfer the script
