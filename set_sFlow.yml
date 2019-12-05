@@ -4,7 +4,7 @@
   tasks:
 
   - name: enable sFlow on the switch
-    picos_config: mode='cli_config' cmd='set protocols sflow disable false}'
+    picos_config: mode='cli_config' cmd='set protocols sflow disable false'
     register: exec_result
     
   - name: Set sFlow server IP Address
